@@ -1,0 +1,347 @@
+/* ============================= */
+/*  Minimalist Firefox UI Theme  */
+/* ============================= */
+
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ============================= */
+/*  Variables                    */
+/* ============================= */
+:root {
+    /* Gruvbox Palette */
+    --gruvbox-bg: #282828;
+    --gruvbox-dark1: #3c3836;
+    --gruvbox-fg: #ebdbb2;
+    --gruvbox-yellow: #d79921;
+    --gruvbox-aqua: #689d6a;
+    --gruvbox-orange: #d65d0e;
+    --gruvbox-gray: #928374;
+
+    /* Dimensions */
+    --icon-size: 16px;
+    --button-padding: 0px;
+    --tab-height: 37px;
+    --toolbar-bgcolor: var(--gruvbox-bg);
+    --toolbar-color: var(--gruvbox-fg);
+    --toolbar-hover-bg: rgba(136, 119, 34, 0.2);
+}
+
+/* ============================= */
+/*  Remove Window Decorations    */
+/* ============================= */
+#titlebar,
+.titlebar-buttonbox-container,
+#titlebar-content {
+    visibility: collapse !important;
+    display: none !important;
+}
+
+/* ============================= */
+/*  Toolbar and Buttons          */
+/* ============================= */
+#nav-bar {
+    background-color: var(--toolbar-bgcolor) !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+}
+
+.toolbarbutton,
+.toolbarbutton-icon {
+    width: var(--icon-size) !important;
+    height: var(--icon-size) !important;
+    padding: var(--button-padding) !important;
+    margin: 0 !important;
+    transform: scale(0.8) !important;
+    transform-origin: center !important;
+}
+
+/* Hide unnecessary buttons */
+#search-container,
+#downloads-button,
+#bookmarks-menu-button,
+#history-panel-toggle,
+#sidebar-button,
+#back-button,
+#forward-button,
+#nav-bar-overflow-button {
+    display: none !important;
+}
+
+/* ============================= */
+/*  Tabs                         */
+/* ============================= */
+
+/* Ensure tabs toolbar has no extra padding or margins */
+#TabsToolbar {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.tabbrowser-tab {
+    border-radius: 0 !important;
+    height: var(--tab-height) !important;
+    line-height: var(--tab-height) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 14px !important;
+    color: var(--toolbar-color) !important;
+    overflow: visible !important;
+}
+
+
+#scrollbutton-up,
+#scrollbutton-down {
+    display: none !important;
+    visibility: hidden !important;
+}
+/* Remove outline and box-shadow on selected tab */
+.tabbrowser-tab[selected="true"] {
+  background: var(--gruvbox-dark1)!important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove outline from any child elements within the selected tab */
+.tabbrowser-tab[selected="true"] * {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove pseudo-element outlines on selected tab */
+.tabbrowser-tab[selected="true"]::after,
+.tabbrowser-tab[selected="true"]::before {
+  display: none !important;
+}
+
+/* Remove focus and active outlines */
+.tabbrowser-tab[selected="true"]:focus,
+.tabbrowser-tab[selected="true"]:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+/* Hide close tab buttons */
+.tabbrowser-tab .tab-close-button {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ============================= */
+/*  Align Tab Content and Label  */
+/* ============================= */
+
+/* Ensure the main tab container matches the desired height */
+.tabbrowser-tab {
+  height: var(--tab-height) !important;
+  min-height: var(--tab-height) !important;
+  max-height: var(--tab-height) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important; /* Prevent text clipping */
+}
+
+/* Align the tab stack content properly */
+.tabbrowser-tab .tab-stack {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important; /* Center content vertically */
+  justify-content: center !important;
+  overflow: visible !important; /* Prevent text clipping */
+}
+
+/* Ensure the tab-label-container aligns correctly */
+.tabbrowser-tab .tab-label-container {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important; /* Center text vertically */
+  overflow: visible !important; /* Ensure no text is clipped */
+}
+
+/* Ensure tab content (icons, text, buttons) aligns properly */
+.tabbrowser-tab .tab-content {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important; /* Center content vertically */
+  justify-content: center !important;
+  overflow: visible !important; /* Prevent clipping of any content */
+}
+
+/* Set consistent line height for tab text */
+.tabbrowser-tab .tab-label {
+  line-height: var(--tab-height) !important;
+  white-space: nowrap !important; /* Prevent text wrapping */
+  text-overflow: clip !important; /* Ensure text doesn't fade */
+  overflow: visible !important; /* Prevent text clipping */
+}
+
+/* ============================= */
+/*  URL Bar                      */
+/* ============================= */
+#identity-box,
+#urlbar-zoom-button,
+#pageActionButton,
+#pocket-button,
+#tracking-protection-icon-container,
+#userContext-label,
+#userContext-indicator,
+#urlbar-go-button,
+#firefox-view-button {
+    display: none !important;
+}
+
+#urlbar-container {
+  position: absolute !important; /* Remove it from the normal flow */
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 1px !important; /* Minimal height to keep it functional */
+  opacity: 0 !important; /* Visually hidden */
+  pointer-events: none !important; /* Disable interaction */
+  overflow: hidden !important;
+  transition: opacity 0.3s ease, height 0.3s ease !important;
+}
+
+#urlbar-input {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 14px !important;
+    color: var(--gruvbox-fg) !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    padding-left: 12px !important;
+    width: calc(100% - 12px) !important;
+    height: auto !important;
+}
+
+/* Auto-hide URL bar and nav bar */
+#urlbar-container,
+#urlbar,
+#nav-bar {
+  position: absolute !important; /* Remove from the normal document flow */
+  top: var(--tab-height)!important; /* Move it off-screen */
+
+    opacity: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+
+}
+
+
+
+
+#navigator-toolbox:focus-within #nav-bar,
+#navigator-toolbox:focus-within #urlbar {
+    opacity: 1 !important;
+    height: auto !important;
+    padding-left: 12px !important;
+    margin: 0 !important;
+    pointer-events: auto !important;
+    transform: scaleY(1) !important;
+    width: 90% !important;
+}
+/* Show the URL bar with proper size */
+#navigator-toolbox:focus-within #urlbar-container {
+  position: relative !important; /* Restore normal layout */
+  top: 0 !important;
+  height: 40px !important; /* Set desired height for the URL bar */
+  opacity: 1 !important; /* Make it visible */
+  pointer-events: auto !important; /* Enable interaction */
+  overflow: visible !important; /* Ensure all content is visible */
+  padding: 4px 8px !important; /* Add appropriate padding */
+  box-sizing: border-box !important; /* Maintain consistency */
+}
+
+#navigator-toolbox {
+  height: var(--tab-height) !important; /* Include tabs and space for URL bar */
+  overflow: hidden !important;
+  transition: margin 0.3s ease, padding 0.3s ease !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* #navigator-toolbox:focus-within {
+    height: auto !important;
+    overflow: visible !important;
+    margin-top: 00px !important;
+} */
+
+/* Expand webpage content to fill space */
+#main-window,
+#browser {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    height: 100vh !important;
+}
+/* ============================= */
+/*  Remove Star Icon from URL Bar */
+/* ============================= */
+
+/* Target the star icon (bookmark button) in the URL bar */
+#star-button {
+  display: none !important; /* Completely hide the element */
+  visibility: hidden !important; /* Ensure it’s not interactable */
+  pointer-events: none !important; /* Disable interaction */
+}
+/* ============================= */
+/*  Context Menus                */
+/* ============================= */
+menupopup {
+    background-color: var(--gruvbox-bg) !important;
+    color: var(--gruvbox-fg) !important;
+    border: 1px solid var(--gruvbox-gray) !important;
+}
+
+menupopup menuitem {
+    background-color: transparent !important;
+    color: var(--gruvbox-fg) !important;
+}
+
+menupopup menuitem:hover,
+menupopup menuitem[selected="true"] {
+    background-color: var(--gruvbox-gray) !important;
+    color: var(--gruvbox-bg) !important;
+}
+
+/* ============================= */
+/*  Miscellaneous                */
+/* ============================= */
+/* Remove scrollbars */
+scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Status bar */
+#status-bar {
+    background-color: var(--gruvbox-bg) !important;
+    color: var(--gruvbox-fg) !important;
+    border-top: 1px solid var(--gruvbox-gray) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+}
+
+/* Tooltip styling */
+.tooltip {
+    background-color: var(--gruvbox-gray) !important;
+    color: var(--gruvbox-bg) !important;
+    border: 1px solid var(--gruvbox-yellow) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 18px !important;
+}
+
