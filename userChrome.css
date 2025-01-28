@@ -19,7 +19,7 @@
     --gruvbox-gray: #928374;
 
     /* Dimensions */
-    --icon-size: 16px;
+    --icon-size: 32px;
     --button-padding: 0px;
     --tab-height: 37px;
     --toolbar-bgcolor: var(--gruvbox-bg);
@@ -77,25 +77,43 @@
 
 /* Ensure tabs toolbar has no extra padding or margins */
 #TabsToolbar {
-  margin: 0 !important;
+  height: var(--tab-height) !important;
+  margin: 0px !important;
   padding: 0 !important;
   border-bottom: none !important;
-}
+  scrollbar-width: none !important;
 
+}
 .tabbrowser-tab {
     border-radius: 0 !important;
     height: var(--tab-height) !important;
     line-height: var(--tab-height) !important;
     background: transparent !important;
     border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 14px !important;
-    color: var(--toolbar-color) !important;
-    overflow: visible !important;
+    flex-wrap: nowrap !important; /* Prevent wrapping of tabs */
 }
 
+.tabbrowser-tab[first-visible-unpinned-tab] { margin-inline-start: 32px !important; }
+#tabbrowser-tabs[positionpinnedtabs] .tabbrowser-tab[pinned]::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+#tabbrowser-tabs[positionpinnedtabs] .tabbrowser-tab[pinned] {
+  min-height: calc(var(--tab-height) + 1px) !important;
+  position: absolute; 
+}
+#tabbrowser-tabs[haspinnedtabs]:not([positionpinnedtabs]) > #tabbrowser-arrowscrollbox > .tabbrowser-tab[first-visible-unpinned-tab] {
+  margin-inline-start: 0 !important;
+}
+
+/* Hide text in pinned tabs, show only the icon */
+.tabbrowser-tab[pinned] .tab-label {
+  display: none !important; /* Hide the text label */
+}
 
 #scrollbutton-up,
 #scrollbutton-down {
@@ -141,22 +159,14 @@
 /*  Align Tab Content and Label  */
 /* ============================= */
 
-/* Ensure the main tab container matches the desired height */
-.tabbrowser-tab {
-  height: var(--tab-height) !important;
-  min-height: var(--tab-height) !important;
-  max-height: var(--tab-height) !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow: hidden !important; /* Prevent text clipping */
-}
+
 
 /* Align the tab stack content properly */
 .tabbrowser-tab .tab-stack {
   height: 100% !important;
   display: flex !important;
-  align-items: center !important; /* Center content vertically */
-  justify-content: center !important;
+  align-items: left !important; 
+  justify-content: left !important;
   overflow: visible !important; /* Prevent text clipping */
 }
 
@@ -164,7 +174,7 @@
 .tabbrowser-tab .tab-label-container {
   height: 100% !important;
   display: flex !important;
-  align-items: center !important; /* Center text vertically */
+  align-items: left !important; 
   overflow: visible !important; /* Ensure no text is clipped */
 }
 
@@ -184,6 +194,10 @@
   text-overflow: clip !important; /* Ensure text doesn't fade */
   overflow: visible !important; /* Prevent text clipping */
 }
+
+
+
+
 
 /* ============================= */
 /*  URL Bar                      */
@@ -251,7 +265,7 @@
     margin: 0 !important;
     pointer-events: auto !important;
     transform: scaleY(1) !important;
-    width: 90% !important;
+    width: 50% !important;
 }
 /* Show the URL bar with proper size */
 #navigator-toolbox:focus-within #urlbar-container {
@@ -275,11 +289,6 @@
   padding: 0 !important;
 }
 
-/* #navigator-toolbox:focus-within {
-    height: auto !important;
-    overflow: visible !important;
-    margin-top: 00px !important;
-} */
 
 /* Expand webpage content to fill space */
 #main-window,
@@ -292,7 +301,6 @@
 /*  Remove Star Icon from URL Bar */
 /* ============================= */
 
-/* Target the star icon (bookmark button) in the URL bar */
 #star-button {
   display: none !important; /* Completely hide the element */
   visibility: hidden !important; /* Ensure it’s not interactable */
@@ -322,7 +330,7 @@ menupopup menuitem[selected="true"] {
 /*  Miscellaneous                */
 /* ============================= */
 /* Remove scrollbars */
-scrollbar {
+#scrollbar {
     width: 0 !important;
     height: 0 !important;
 }
