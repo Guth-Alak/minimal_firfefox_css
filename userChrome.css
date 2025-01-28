@@ -25,6 +25,7 @@
     --toolbar-bgcolor: var(--gruvbox-bg);
     --toolbar-color: var(--gruvbox-fg);
     --toolbar-hover-bg: rgba(136, 119, 34, 0.2);
+    --font-size: 14px;
 }
 
 /* ============================= */
@@ -88,14 +89,16 @@
     border-radius: 0 !important;
     height: var(--tab-height) !important;
     line-height: var(--tab-height) !important;
-    background: transparent !important;
     border: none !important;
     font-family: 'JetBrains Mono', monospace !important;
-    font-size: 14px !important;
+    font-size: var(--font-size) !important;
     flex-wrap: nowrap !important; /* Prevent wrapping of tabs */
+    width: auto !important;
+
 }
 
-.tabbrowser-tab[first-visible-unpinned-tab] { margin-inline-start: 32px !important; }
+.tabbrowser-tab[first-visible-unpinned-tab] { margin-inline-start: 12px !important; }
+
 #tabbrowser-tabs[positionpinnedtabs] .tabbrowser-tab[pinned]::after {
   position: absolute;
   top: 0;
@@ -165,7 +168,7 @@
 .tabbrowser-tab .tab-stack {
   height: 100% !important;
   display: flex !important;
-  align-items: left !important; 
+  align-items: bottom !important; 
   justify-content: left !important;
   overflow: visible !important; /* Prevent text clipping */
 }
@@ -174,7 +177,7 @@
 .tabbrowser-tab .tab-label-container {
   height: 100% !important;
   display: flex !important;
-  align-items: left !important; 
+  align-items: bottom !important; 
   overflow: visible !important; /* Ensure no text is clipped */
 }
 
@@ -182,7 +185,7 @@
 .tabbrowser-tab .tab-content {
   height: 100% !important;
   display: flex !important;
-  align-items: center !important; /* Center content vertically */
+  align-items: bottom !important; /* Center content vertically */
   justify-content: center !important;
   overflow: visible !important; /* Prevent clipping of any content */
 }
@@ -278,9 +281,19 @@
   padding: 4px 8px !important; /* Add appropriate padding */
   box-sizing: border-box !important; /* Maintain consistency */
 }
+#urlbar-resultsView {
+    display: none !important;
+}
+/* Hide related autocomplete dropdowns */
+#PopupAutoCompleteRichResult,
+#PopupAutoComplete,
+#urlbar-suggestion-box,
+#ac-results {
+    display: none !important;
+}
 
 #navigator-toolbox {
-  height: var(--tab-height) !important; /* Include tabs and space for URL bar */
+  height: calc(var(--tab-height) * 1.2) !important; /* Include tabs and space for URL bar */
   overflow: hidden !important;
   transition: margin 0.3s ease, padding 0.3s ease !important;
   border-bottom: none !important;
@@ -312,7 +325,7 @@
 menupopup {
     background-color: var(--gruvbox-bg) !important;
     color: var(--gruvbox-fg) !important;
-    border: 1px solid var(--gruvbox-gray) !important;
+    border: 0px solid var(--gruvbox-gray) !important;
 }
 
 menupopup menuitem {
@@ -339,7 +352,7 @@ menupopup menuitem[selected="true"] {
 #status-bar {
     background-color: var(--gruvbox-bg) !important;
     color: var(--gruvbox-fg) !important;
-    border-top: 1px solid var(--gruvbox-gray) !important;
+    border-top: 0px solid var(--gruvbox-gray) !important;
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 12px !important;
 }
@@ -348,7 +361,7 @@ menupopup menuitem[selected="true"] {
 .tooltip {
     background-color: var(--gruvbox-gray) !important;
     color: var(--gruvbox-bg) !important;
-    border: 1px solid var(--gruvbox-yellow) !important;
+    border: 0px solid var(--gruvbox-yellow) !important;
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 18px !important;
 }
