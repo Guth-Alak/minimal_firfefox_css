@@ -21,11 +21,11 @@
     /* Dimensions */
     --icon-size: 32px;
     --button-padding: 0px;
-    --tab-height: 37px;
+    --tab-height: 27px;
     --toolbar-bgcolor: var(--gruvbox-bg);
     --toolbar-color: var(--gruvbox-fg);
     --toolbar-hover-bg: rgba(136, 119, 34, 0.2);
-    --font-size: 14px;
+    --font-size: 7px;
 }
 
 /* ============================= */
@@ -35,6 +35,13 @@
 .titlebar-buttonbox-container,
 #titlebar-content {
     visibility: collapse !important;
+    display: none !important;
+}
+.titlebar-spacer[type="pre-tabs"] {
+    width: 0px !important;
+    min-width: 0px !important;
+}
+.titlebar-spacer[type="post-tabs"] {
     display: none !important;
 }
 
@@ -50,14 +57,22 @@
     flex: 1 !important;
 }
 
-.toolbarbutton,
-.toolbarbutton-icon {
-    width: var(--icon-size) !important;
-    height: var(--icon-size) !important;
-    padding: var(--button-padding) !important;
+.toolbarbutton {
+    width: var(--tab-height) !important;
+    height: var(--tab-height) !important;
+    max-height: var(--tab-height) !important;
+    min-height: var(--tab-height) !important;
+    padding: 0 !important;
     margin: 0 !important;
-    transform: scale(0.8) !important;
-    transform-origin: center !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+.toolbarbutton-icon {
+    width: 16px !important;
+    height: 16px !important;
+    padding: 0 !important;
+    margin: auto !important;
+    display: block !important;
 }
 
 /* Hide unnecessary buttons */
@@ -83,21 +98,33 @@
   padding: 0 !important;
   border-bottom: none !important;
   scrollbar-width: none !important;
-
+  display: flex !important;
+  align-items: stretch !important;
+  max-height: var(--tab-height) !important;
+  min-height: var(--tab-height) !important;
+  line-height: var(--tab-height) !important;
+  overflow: hidden !important;
 }
 .tabbrowser-tab {
     border-radius: 0 !important;
     height: var(--tab-height) !important;
-    line-height: var(--tab-height) !important;
+    min-height: var(--tab-height) !important;
     border: none !important;
     font-family: 'JetBrains Mono', monospace !important;
     font-size: var(--font-size) !important;
-    flex-wrap: nowrap !important; /* Prevent wrapping of tabs */
+    flex-wrap: nowrap !important;
     width: auto !important;
-
+    flex: none !important;
+    min-width: auto !important;
+    max-width: none !important;
 }
 
-.tabbrowser-tab[first-visible-unpinned-tab] { margin-inline-start: 12px !important; }
+.tabbrowser-tab[first-visible-unpinned-tab] { margin-inline-start: 0px !important; }
+.tabbrowser-tab:not([pinned]) {
+  flex: none !important;
+  width: -moz-fit-content !important;
+  min-width: -moz-fit-content !important;
+}
 
 #tabbrowser-tabs[positionpinnedtabs] .tabbrowser-tab[pinned]::after {
   position: absolute;
@@ -111,11 +138,33 @@
 }
 #tabbrowser-tabs[haspinnedtabs]:not([positionpinnedtabs]) > #tabbrowser-arrowscrollbox > .tabbrowser-tab[first-visible-unpinned-tab] {
   margin-inline-start: 0 !important;
+  border-left: none !important;
+  padding-left: 0 !important;
 }
 
 /* Hide text in pinned tabs, show only the icon */
 .tabbrowser-tab[pinned] .tab-label {
-  display: none !important; /* Hide the text label */
+  display: none !important;
+}
+.tabbrowser-tab[pinned] .tab-content {
+  padding: 0 4px !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.tabbrowser-tab[pinned] {
+  min-width: 32px !important;
+  width: 32px !important;
+  flex: 0 0 32px !important;
+  margin-right: 0 !important;
+  border: none !important;
+  margin-left: 0 !important;
+}
+.tabbrowser-tab[pinned] .tab-icon-image {
+  padding: 0 !important;
+  margin: 0 auto !important;
+  display: block !important;
 }
 
 #scrollbutton-up,
@@ -168,7 +217,7 @@
 .tabbrowser-tab .tab-stack {
   height: 100% !important;
   display: flex !important;
-  align-items: bottom !important; 
+  align-items: center !important; 
   justify-content: left !important;
   overflow: visible !important; /* Prevent text clipping */
 }
@@ -177,7 +226,9 @@
 .tabbrowser-tab .tab-label-container {
   height: 100% !important;
   display: flex !important;
-  align-items: bottom !important; 
+  align-items: center !important; 
+  padding: 0 !important;
+  margin: 0 !important;
   overflow: visible !important; /* Ensure no text is clipped */
 }
 
@@ -185,20 +236,46 @@
 .tabbrowser-tab .tab-content {
   height: 100% !important;
   display: flex !important;
-  align-items: bottom !important; /* Center content vertically */
-  justify-content: center !important;
-  overflow: visible !important; /* Prevent clipping of any content */
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 0 8px !important;
+  margin: 0 !important;
+  overflow: visible !important;
+}
+.tabbrowser-tab .tab-icon-image {
+  padding: 0 4px !important;
+  margin: 0 !important;
 }
 
 /* Set consistent line height for tab text */
 .tabbrowser-tab .tab-label {
   line-height: var(--tab-height) !important;
-  white-space: nowrap !important; /* Prevent text wrapping */
-  text-overflow: clip !important; /* Ensure text doesn't fade */
-  overflow: visible !important; /* Prevent text clipping */
+  padding: 0 6px 0 6px !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  text-overflow: clip !important;
+  overflow: visible !important;
+  flex-shrink: 0 !important;
 }
 
-
+/* Tab container sizing and scrolling */
+#tabbrowser-tabs {
+  --tab-min-height: var(--tab-height) !important;
+  flex: 1 !important;
+  height: var(--tab-height) !important;
+  max-height: var(--tab-height) !important;
+  min-height: var(--tab-height) !important;
+  border-left: none !important;
+  margin-left: 0 !important;
+}
+#tabbrowser-arrowscrollbox {
+  overflow: auto !important;
+  scrollbar-width: none !important;
+  height: var(--tab-height) !important;
+  max-height: var(--tab-height) !important;
+  min-height: var(--tab-height) !important;
+  --tab-min-height: var(--tab-height) !important;
+}
 
 
 
@@ -293,13 +370,16 @@
 }
 
 #navigator-toolbox {
-  height: calc(var(--tab-height) * 1.2) !important; /* Include tabs and space for URL bar */
+  height: var(--tab-height) !important;
+  max-height: var(--tab-height) !important;
+  min-height: var(--tab-height) !important;
   overflow: hidden !important;
-  transition: margin 0.3s ease, padding 0.3s ease !important;
+  transition: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
   margin: 0 !important;
   padding: 0 !important;
+  line-height: var(--tab-height) !important;
 }
 
 
@@ -365,4 +445,5 @@ menupopup menuitem[selected="true"] {
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 18px !important;
 }
+
 
